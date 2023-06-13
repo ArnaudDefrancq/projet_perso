@@ -2,8 +2,10 @@ const express = require("express");
 const connectDB = require("./config/db");
 const dotenv = require("dotenv").config();
 const bodyParser = require("body-parser");
+const path = require("path");
 
-const routeAuth = require("./router/auth.routes");
+const routesAuth = require("./router/auth.routes");
+const routesPost = require("./router/post.routes");
 
 connectDB();
 
@@ -32,6 +34,9 @@ app.get("/", (req, res) => {
   });
 });
 
-app.use("/api/auth", routeAuth);
+app.use("/api/auth", routesAuth);
+app.use("/api/post", routesPost);
+
+app.use("/images", express.static(path.join(__dirname, "images")));
 
 module.exports = app;
